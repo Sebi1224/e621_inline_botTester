@@ -3,12 +3,14 @@ package e621_inline_botTest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -65,23 +67,30 @@ public class e621_inline_botInstance extends Thread {
 
 		int count = 0;
 		while (count < numberTests) {
-			// open search button find and click
-			List<WebElement> text = driver.findElements(By.xpath("//*[text()='open search']"));
-			if (text.size() > 0) {
-				text.get(0).click();
-			}
-
+			int ran = ThreadLocalRandom.current().nextInt(14, 2125828 + 1);
+			driver.findElement(By.className("composer_rich_textarea")).clear();
+			WebElement ele = driver.findElement(By.className("composer_rich_textarea"));
+			driver.findElement(By.className("composer_rich_textarea")).sendKeys("@e621_inline_bot offset:" + ran);
+			
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+			
 			// picture find and click
-			WebDriverWait waitpicture = new WebDriverWait(driver, 500);
+			WebDriverWait waitpicture = new WebDriverWait(driver, 30);
 			WebElement picture = wait.until(ExpectedConditions
 					.elementToBeClickable(By.xpath("//li[@class='inline_result_wrap inline_result_photo']")));
-			picture.click();
+//			picture.click();
 
 			count++;
-			System.out.println("Run " + count + " finished!");
+			System.out.println("[Instanze " + instance + "]: Run " + count + " finished!");
 
 		}
-		System.out.println("Finished! Runs: " + count);
+		System.out.println("[Instanze " + instance + "]: Finished! Runs: " + count);
 		driver.close();
 
 	}

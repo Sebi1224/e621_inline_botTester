@@ -59,8 +59,10 @@ public class e621_inline_botMain {
 			WebDriverWait wait = new WebDriverWait(driver, 5000);
 			wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("im_dialogs_search")));
 			
+			driver.get("https://t.me/joinchat/FTHPSxrMFlEGydr1u_9ZKQ");
+			
 			JavascriptExecutor js = (JavascriptExecutor) driver;  
-			js.executeScript("window.confirm(\"ATTENTION!!\\nATTENTION!!\\nATTENTION!!\\nATTENTION!!\\nPlease close the browser and start the programm again!\");");
+			js.executeScript("window.confirm(\"ATTENTION!!\\nATTENTION!!\\nATTENTION!!\\nATTENTION!!\\nPlease click on \"Open in Web\", join chat, close the browser and start the programm again!\");");
 			System.exit(0);
 		}
 
@@ -83,48 +85,48 @@ public class e621_inline_botMain {
 			scanner.nextLine(); // discard any other data
 		}
 
-		numberThreads = 0;
-		boolean isValid2 = false;
-		while (isValid2 == false) {
-			System.out.println("Enter number of Thread with " + numberTests + " each: ");
-			// If input is number execute this,
-			if (scanner.hasNextInt()) {
-				numberThreads = scanner.nextInt();
-				isValid2 = true;
-				System.out.println("OK! " + numberThreads + " Thread with " + numberTests + " Tests each!");
-			}
-			// If input is not a number execute this block,
-			else {
-				System.out.println("Error! Invalid number. Try again.");
-			}
-			scanner.nextLine(); // discard any other data
-		}
+		numberThreads = 1;
+//		boolean isValid2 = false;
+//		while (isValid2 == false) {
+//			System.out.println("Enter number of Thread with " + numberTests + " each: ");
+//			// If input is number execute this,
+//			if (scanner.hasNextInt()) {
+//				numberThreads = scanner.nextInt();
+//				isValid2 = true;
+//				System.out.println("OK! " + numberThreads + " Thread with " + numberTests + " Tests each!");
+//			}
+//			// If input is not a number execute this block,
+//			else {
+//				System.out.println("Error! Invalid number. Try again.");
+//			}
+//			scanner.nextLine(); // discard any other data
+//		}
 		
 		
-		url = "";
-		boolean isValid3 = false;
-		while (isValid3 == false) {
-			System.out.println("Enter url for test chat.\nMake sure that this chat contains at least one\nmessage from the e621_inline_bot \nor write TEST to select the test group!");
-			// If input is number execute this,
-			if (scanner.hasNext()) {
-				String str = scanner.next();
-				if (str.startsWith("https://web.telegram.org/#/im?p=")) {
-					url = str;
-					isValid3 = true;
-					System.out.println("OK! URL: " + url);
-				}else if (str.startsWith("TEST")) {
-					url = "https://web.telegram.org/#/im?p=g449582673";
-					isValid3 = true;
-					System.out.println("OK! Test group selectet!");
-				}
-				
-				
-			// If input is not a String execute this block,
-			}else {
-				System.out.println("Error! Invalid url. Try again. Start with: \"https://web.telegram.org/#/im?p=\" ");
-			}
-			scanner.nextLine(); // discard any other data
-		}
+		url = "https://web.telegram.org/#/im?p=g449582673";
+//		boolean isValid3 = false;
+//		while (isValid3 == false) {
+//			System.out.println("Enter url for test chat.\nMake sure that this chat contains at least one\nmessage from the e621_inline_bot \nor write TEST to select the test group!");
+//			// If input is number execute this,
+//			if (scanner.hasNext()) {
+//				String str = scanner.next();
+//				if (str.startsWith("https://web.telegram.org/#/im?p=")) {
+//					url = str;
+//					isValid3 = true;
+//					System.out.println("OK! URL: " + url);
+//				}else if (str.startsWith("TEST")) {
+//					url = "https://web.telegram.org/#/im?p=g449582673";
+//					isValid3 = true;
+//					System.out.println("OK! Test group selectet!");
+//				}
+//				
+//				
+//			// If input is not a String execute this block,
+//			}else {
+//				System.out.println("Error! Invalid url. Try again. Start with: \"https://web.telegram.org/#/im?p=\" ");
+//			}
+//			scanner.nextLine(); // discard any other data
+//		}
 		
 		scanner.close();
 		
@@ -146,12 +148,23 @@ public class e621_inline_botMain {
 			
 
 		}
-
-		// start threads
-		for (int b = 0; b < t.length; b++) {
-			t[b] = new Thread(new e621_inline_botInstance(numberTests, (b+1), url));
-			t[b].start();
-		}
+		
+		t[0] = new Thread(new e621_inline_botInstance(numberTests, 1, url));
+		t[0].start();
+//		t[1] = new Thread(new e621_inline_botInstance(numberTests, 2, "https://web.telegram.org/#/im?p=g360843646"));
+//		t[1].start();
+//		t[2] = new Thread(new e621_inline_botInstance(numberTests, 3, "https://web.telegram.org/#/im?p=g473596649"));
+//		t[2].start();
+//		t[3] = new Thread(new e621_inline_botInstance(numberTests, 4, "https://web.telegram.org/#/im?p=g463140123"));
+//		t[3].start();
+//		t[4] = new Thread(new e621_inline_botInstance(numberTests, 5, "https://web.telegram.org/#/im?p=g449582673"));
+//		t[4].start();
+		
+//		// start threads
+//		for (int b = 0; b < t.length; b++) {
+//			t[b] = new Thread(new e621_inline_botInstance(numberTests, (b+1), url));
+//			t[b].start();
+//		}
 
 	}
 	
